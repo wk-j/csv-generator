@@ -54,7 +54,9 @@ namespace CsvGenerator {
         }
 
         private static string ToTile(string input) {
-            var token = input.Split(' ').Select(x => x.Substring(0, 1).ToUpper() + x.Substring(1));
+            var token = input
+                .Replace(" ", "_")
+                .Split('_').Select(x => x.Substring(0, 1).ToUpper() + x.Substring(1));
             return string.Concat(token).Trim();
         }
 
