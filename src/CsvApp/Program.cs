@@ -1,12 +1,12 @@
 ﻿using System;
 
 namespace CsvApp {
-    [Csv(Template = "A.csv")]
+    [CsvGenerator(Template = "A.csv")]
     partial class A {
 
     }
 
-    [Csv(Template = "B.csv")]
+    [CsvGenerator(Template = "B.csv")]
     partial class B {
 
     }

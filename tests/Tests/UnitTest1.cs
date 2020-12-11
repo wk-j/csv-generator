@@ -16,12 +16,6 @@ namespace Tests {
             File.ReadAllText(Path.Combine("../../../../../resource", path));
 
         [Fact]
-        public void Test1() {
-            var id = Wk.Identifier.Parse(" abc1234 ");
-            Assert.Equal("abc1234", id);
-        }
-
-        [Fact]
         public void Csv() {
             var text = GetResource("csv/A.csv");
             var csv = CsvParser.Csv.Parse(text);

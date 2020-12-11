@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -8,15 +9,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Sprache;
 
+[assembly: InternalsVisibleToAttribute("Tests")]
+
 namespace CsvGenerator {
     [Generator]
     internal class TypeGenerator : ISourceGenerator {
-        private const string AttributeText = @"
+        private const string AttributeName = "CsvGeneratorAttribute";
+        private static string AttributeText = $@"
 using System;
 [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
-public class CsvAttribute : Attribute {
-    public string Template { set;get;}
-}
+public class {AttributeName} : Attribute {{
+    public string Template {{ set; get; }}
+}}
 ";
 
         private AdditionalText GetJsonSettings(GeneratorExecutionContext context, string fileName) =>
@@ -29,7 +33,7 @@ public class CsvAttribute : Attribute {
 
             var tree = CSharpSyntaxTree.ParseText(SourceText.From(AttributeText, Encoding.UTF8), options);
             var compilation = context.Compilation.AddSyntaxTrees(tree);
-            var attributeSymbol = compilation.GetTypeByMetadataName("CsvAttribute");
+            var attributeSymbol = compilation.GetTypeByMetadataName(AttributeName);
             var classSymbals = new List<INamedTypeSymbol>();
 
             foreach (var item in receiver.CandidateClasses) {
@@ -44,7 +48,7 @@ public class CsvAttribute : Attribute {
 
         private SourceText CreateAppSettingsSource(INamedTypeSymbol classSymbol, GeneratorExecutionContext context) {
             var namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
-            var att = classSymbol.GetAttributes().FirstOrDefault(x => x.AttributeClass.Name == "CsvAttribute");
+            var att = classSymbol.GetAttributes().FirstOrDefault(x => x.AttributeClass.Name == AttributeName);
             var templateAttribute = att.NamedArguments[0];
             var templateValue = templateAttribute.Value.Value as string;
 

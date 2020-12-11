@@ -61,8 +61,7 @@ namespace CsvGenerator {
         }
 
         public static IEnumerable<string> Header(string csv) {
-            var head = Record.XMany().End().Parse(csv).First().Select(ToTile);
-            return head;
+            return Csv.Parse(csv).First().Select(ToTile);
         }
 
         public static Parser<IEnumerable<IEnumerable<string>>> Csv =>
