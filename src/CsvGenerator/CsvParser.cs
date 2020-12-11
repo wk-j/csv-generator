@@ -4,7 +4,7 @@ using Sprache;
 using System.Linq;
 
 namespace CsvGenerator {
-    internal static class CsvParser {
+    public static class CsvParser {
         private static readonly Parser<char> CellSeparator = Parse.Char(',');
 
         private static readonly Parser<char> QuotedCellDelimiter = Parse.Char('"');

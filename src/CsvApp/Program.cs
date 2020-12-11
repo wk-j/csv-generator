@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace CsvApp {
     [CsvGenerator(Template = "A.csv")]
@@ -13,12 +14,11 @@ namespace CsvApp {
 
     class Program {
         static void Main(string[] args) {
-            var a = new A();
-            a.FirstName = "a";
-            a.LastName = "l";
-            a.Id = "1";
-
-            var b = new B();
+            var csv = File.ReadAllText("resource/csv/A.csv");
+            var data = ALoader.Parse(csv);
+            foreach (var item in data) {
+                Console.WriteLine("{0,10} {1,10} {2,10}", item.Id, item.FirstName, item.LastName);
+            }
         }
     }
 }

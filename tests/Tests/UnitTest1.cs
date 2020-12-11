@@ -2,8 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 using CsvGenerator;
-using Sprache;
 using Xunit;
+using Sprache;
 using Xunit.Abstractions;
 
 namespace Tests {

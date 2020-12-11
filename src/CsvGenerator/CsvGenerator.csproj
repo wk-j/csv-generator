@@ -4,6 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoWarn>RCS1197</NoWarn>
+    <PackageId>wk.CsvGenerator</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +31,10 @@
       <TargetPathWithTargetPlatformMoniker Include="$(PKGSprache)\lib\netstandard2.0\*.dll" IncludeRuntimeDependency="false" />
     </ItemGroup>
   </Target>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CsvParser.cs" />
+  </ItemGroup>
 
 
 </Project>
